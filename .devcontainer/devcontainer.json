@@ -1,22 +1,14 @@
 {
-  "name": "ZSH and Homebrew Development Container",
+  "name": "ZSH and Homebrew Dev Container",
   "build": {
-    "context": "..",
-    "dockerfile": "../Dockerfile"
+    "dockerfile": "../Dockerfile",
+    "context": ".."
   },
   
-  // Environment variables to set in the container
-  "containerEnv": {
-    "PATH": "/home/vscode/.linuxbrew/bin:${containerEnv:PATH}",
-    "HOMEBREW_PREFIX": "/home/vscode/.linuxbrew",
-    "HOMEBREW_CELLAR": "/home/vscode/.linuxbrew/Cellar",
-    "HOMEBREW_REPOSITORY": "/home/vscode/.linuxbrew"
-  },
+  // Run the post-start script to install Homebrew after container starts
+  "postStartCommand": "sudo /usr/local/bin/post-start.sh",
   
-  // Run a simple check to ensure Homebrew is working
-  "postCreateCommand": "brew --version && brew install coreutils",
-  
-  // Set the default shell to zsh in VS Code
+  // Terminal configuration
   "customizations": {
     "vscode": {
       "settings": {
@@ -28,12 +20,10 @@
         }
       },
       "extensions": [
-        "ms-azuretools.vscode-docker",
-        "github.vscode-pull-request-github"
+        "ms-azuretools.vscode-docker"
       ]
     }
   },
   
-  // Run as non-root user
   "remoteUser": "vscode"
 }
