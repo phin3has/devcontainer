@@ -34,7 +34,7 @@ This image is built and pushed to GitHub Container Registry automatically on eve
 ```json
 {
   "name": "My Project Dev Container",
-  "image": "ghcr.io/YOUR-USERNAME/devcontainer:latest",
+  "image": "ghcr.io/phin3has/devcontainer:latest",
   
   // Add any features you want
   "features": {
