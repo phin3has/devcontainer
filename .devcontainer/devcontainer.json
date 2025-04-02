@@ -5,10 +5,18 @@
     "dockerfile": "../Dockerfile"
   },
   
-  // Set up post-create command to run the script
-  "postCreateCommand": "bash -c 'chmod +x ${containerWorkspaceFolder}/post-create.sh && ${containerWorkspaceFolder}/post-create.sh'",
+  // Environment variables to set in the container
+  "containerEnv": {
+    "PATH": "/home/vscode/.linuxbrew/bin:${containerEnv:PATH}",
+    "HOMEBREW_PREFIX": "/home/vscode/.linuxbrew",
+    "HOMEBREW_CELLAR": "/home/vscode/.linuxbrew/Cellar",
+    "HOMEBREW_REPOSITORY": "/home/vscode/.linuxbrew"
+  },
   
-  // Configure VSCode settings
+  // Run a simple check to ensure Homebrew is working
+  "postCreateCommand": "brew --version && brew install coreutils",
+  
+  // Set the default shell to zsh in VS Code
   "customizations": {
     "vscode": {
       "settings": {

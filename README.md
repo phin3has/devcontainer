@@ -8,19 +8,19 @@ This repository contains a development container configuration for Visual Studio
 
 ## How it works
 
-The setup is split into two phases:
+The container image includes:
 
-1. **Build phase** (Dockerfile):
-   - Sets up the basic environment with required packages
-   - Installs ZSH and Oh-My-ZSH
-   - Configures ZSH as the default shell
+1. **ZSH Configuration**:
+   - ZSH as the default shell
+   - Oh-My-ZSH pre-installed with the "robbyrussell" theme
+   - Custom .zshrc configuration
 
-2. **Post-create phase** (post-create.sh):
-   - Installs Homebrew via git clone (more reliable in containers)
-   - Configures environment variables
-   - Updates Homebrew and installs basic utilities
+2. **Homebrew Installation**:
+   - Homebrew installed directly in the container image
+   - Environment variables properly set
+   - Basic Homebrew initialization performed
 
-## Usage
+## Usage as a Development Container
 
 1. Open this folder in VS Code
 2. When prompted, click "Reopen in Container"
@@ -34,7 +34,7 @@ This image is built and pushed to GitHub Container Registry automatically on eve
 ```json
 {
   "name": "My Project Dev Container",
-  "image": "ghcr.io/phin3has/devcontainer:latest",
+  "image": "ghcr.io/YOUR-USERNAME/devcontainer:latest",
   
   // Add any features you want
   "features": {
@@ -48,11 +48,16 @@ This image is built and pushed to GitHub Container Registry automatically on eve
 
 Replace `YOUR-USERNAME` with your actual GitHub username.
 
+## Important Notes
+
+- The Homebrew installation is located at `/home/vscode/.linuxbrew`
+- The image supports both AMD64 and ARM64 architectures for compatibility with Apple Silicon Macs
+
 ## Customization
 
 - Modify `.zshrc` to customize your ZSH configuration
-- Edit `post-create.sh` to install additional packages or setup dotfiles
 - Update `devcontainer.json` to add more VS Code extensions or settings
+- Add additional tools to the Dockerfile for more specific use cases
 
 ## Troubleshooting
 
