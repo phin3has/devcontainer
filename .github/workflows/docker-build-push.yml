@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Push Multi-Architecture Docker Image
 
 on:
   push:
@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -40,8 +43,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: |
+            ${{ steps.meta.outputs.labels }}
+            org.opencontainers.image.description=Development container with ZSH and Homebrew
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
