@@ -24,14 +24,33 @@ This container provides:
 
 ```json
 {
-  "name": "My Project",
-  "image": "ghcr.io/YOUR-USERNAME/devcontainer:latest",
-  
-  // Optional: add other features
-  "features": {
-    "ghcr.io/devcontainers/features/python:1": {}
+        "name": "Project Name",
+        "image": "ghcr.io/phin3has/devcontainer:latest",
+
+        // Run the post-start script to install Homebrew
+        "postStartCommand": "sudo /usr/local/bin/post-start.sh",
+
+        // Set zsh as the default shell
+        "customizations": {
+          "vscode": {
+                "settings": {
+                  "terminal.integrated.defaultProfile.linux": "zsh",
+                  "terminal.integrated.profiles.linux": {
+                        "zsh": {
+                          "path": "/bin/zsh"
+                        }
+                  }
+                }
+          }
+        },
+
+        //Add the features following: 
+        "features": {
+          "ghcr.io/devcontainers/features/python:1": {}
+        },
+
+        "remoteUser": "vscode"
   }
-}
 ```
 
 ## Troubleshooting
